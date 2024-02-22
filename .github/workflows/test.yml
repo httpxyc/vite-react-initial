@@ -10,13 +10,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      
   build:
     runs-on: ubuntu-latest
     needs: checkout-master-setup-node
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4 # 将代码检出到工作空间
       - run: echo "hello world"
-      - run: npm install
+      - run: npm install # 安装依赖和build命令必须在一个job中才行，因为在当前job中uses: actions/checkout@v4将代码检出到工作空间后没有node_modules文件夹，build命令会报错
       - run: npm run build
         
